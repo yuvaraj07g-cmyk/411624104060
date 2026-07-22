@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details</title>
+    <style>
+        button:hover{
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>User Details</h2>
+
+<button onclick="loadUsers()">Get Users</button>
+
+<p id="status"></p>
+
+<div id="users"></div>
+
+<script>
+function loadUsers() {
+    document.getElementById("status").innerText = "Loading...";
+    document.getElementById("users").innerHTML = "";
+
+    setTimeout(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => response.json())
+            .then(data => {
+
+                let output = "";
+
+                data.forEach(user => {
+                    output += `
+                        <div class="user-card">
+                            <h3>${user.name}</h3>
+                            <p><strong>Email:</strong> ${user.email}</p>
+                            <p><strong>Phone:</strong> ${user.phone}</p>
+                        </div>
+                    `;
+                });
+
+                document.getElementById("users").innerHTML = output;
+                document.getElementById("status").innerText = "Loaded successfully";
+
+            })
+            .catch(error => {
+                document.getElementById("status").innerText = "Error loading data";
+                console.error(error);
+            });
+
+    }, 5000);
+}
+</script>
+
+</body>
+</html>

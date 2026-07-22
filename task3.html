@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Manager</title>
+    <style>
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+        input{
+            padding:8px;
+        }
+        button{
+            padding:8px 12px;
+            margin:5px;
+        }
+        button:hover{
+        background-color    :aqua;
+        }
+        .msg{
+            background:lightblue;
+            padding:10px;
+            margin:5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Message Manager</h2>
+
+<input type="text" id="message" placeholder="Enter Message">
+<button id="addBtn">Add Message</button>
+<button id="clearBtn">Clear All Messages</button>
+
+<p id="count">Character Count: 0</p>
+
+<h3>Messages</h3>
+<div id="messageBox"></div>
+
+<p id="status"></p>
+
+<script>
+
+let messages = [];
+
+const input = document.getElementById("message");
+const addBtn = document.getElementById("addBtn");
+const clearBtn = document.getElementById("clearBtn");
+const count = document.getElementById("count");
+const box = document.getElementById("messageBox");
+const status = document.getElementById("status");
+
+input.addEventListener("input", function () {
+    count.textContent = "Character Count: " + input.value.length;
+});
+
+function displayMessages() {
+
+    box.innerHTML = "";
+
+    messages.forEach(function(msg, index){
+
+        let div = document.createElement("div");
+        div.className = "msg";
+        div.textContent = msg;
+
+        box.appendChild(div);
+        setTimeout(function(){
+
+            if(messages[index]){
+                messages.splice(index,1);
+                displayMessages();
+                status.textContent = "Message Expired";
+            }
+
+        },10000);
+
+    });
+}
+
+
+addBtn.addEventListener("click", function(){
+    let text = input.value;
+    let promise = new Promise(function(resolve,reject){
+        if(text.length >= 3){
+            resolve(text);
+        }
+        else{
+            reject("Message must contain at least 3 characters");
+        }
+    });
+    promise.then(function(msg){
+        messages.push(msg);
+        status.textContent = "Message Added Successfully";
+        displayMessages();
+        input.value="";
+        count.textContent="Character Count: 0";
+
+    }).catch(function(error){
+
+        status.textContent = error;
+
+    });
+});
+
+clearBtn.addEventListener("click", function(){
+    messages = [];
+    box.innerHTML = "";
+    status.textContent = "All Messages Cleared";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+body{
+    font-family: 'Times New Roman',Times
+}
+img{
+    height:250px;
+    width:250px;
+  /* border-radius:100px;*/
+}
+video{
+    height:400px;
+}
+ol{
+    list-style-type: lower-roman;
+}
+ul{
+    list-style-type: circle;
+}
+table,th,td{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+.pclass{
+    font-size:xx-large;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    gap:50px;
+}
+a{
+    color:black;
+}
+.grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+h1{
+    padding:50px;
+    border:3px solid red;
+    margin:20px;
+}

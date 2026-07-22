@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Using Button</title>
+    <style>
+        body{
+            background: -webkit-linear-gradient(right,yellow,white);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body >
+
+    <input type="text" id="inp" placeholder="Enter the value1">
+    <br>
+    <input type="text" id="inp2" placeholder="Enter the value2">
+    <br>
+    <button id="btn">click</button>
+    <p id="child"></p>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", function () {
+            let val1 = document.getElementById("inp").value;
+            let val2=document.getElementById("inp2").value;
+            document.write(val1+val2);
+            switch(ch){
+
+            }
+        });
+    </script>
+
+</body>
+</html>
