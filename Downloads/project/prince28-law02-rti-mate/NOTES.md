@@ -157,3 +157,44 @@ No secret values should be stored in Git or inside the Docker image.
 - Current status: 502 Bad Gateway in North America.
 
 **One improvement for faster first requests:** Use an always-on hosting service or paid plan to avoid cold starts.
+
+## D06 · Collecting the corpus
+
+- Start target: Act + rules + guides + 200 decisions
+- Collected today: 13 files, 397 pages, 11.4 MB (from DATASET.md)
+- Doors used: URL list and by hand (the three original PDFs were registered manually)
+
+### Licence check
+
+| Source | Licence or terms, in my words | May I show full text in answers? |
+|---|---|---|
+| dopt | Official government material; no collection-wide reuse licence verified. Keep attribution and verify document terms. | No; use only necessary excerpts until terms are confirmed. |
+| rtionline | The [RTI Online Copyright Policy](https://rtionline.gov.in/Policies.php) allows accurate reproduction with prominent attribution, except third-party material. | Only if the specific material is not marked third-party and attribution is included. |
+| kerala-rti | Government publication; reuse terms not independently verified. | No; use only necessary excerpts until terms are confirmed. |
+| tamil-nadu-rti | Government of Tamil Nadu material; reuse terms not independently verified. | No; use only necessary excerpts until terms are confirmed. |
+
+### robots.txt
+
+- Checked the five source hosts: `rti.dopt.gov.in`, `documents.doptcirculars.nic.in`,
+  `rti.img.kerala.gov.in`, `rtionline.gov.in` and `www.tn.gov.in`.
+- Each `robots.txt` check returned 404 (no published directives); the downloader reported
+  `blocked=0` for the ten URL sources. Recheck before adding new hosts.
+
+### Resume check (non-destructive)
+
+- I did not clear `data/raw/` or the manifest, or interrupt a production download; existing files
+  were kept.
+- Re-running the URL list reported `downloaded=0 skipped=10`.
+- The isolated unit test `test_resume_fetches_only_what_is_missing` verifies that a partial set is
+  skipped and only missing files are fetched.
+
+### Capacity (from docs/CAPACITY.md)
+
+- Tokens per page, estimated: 433 (characters divided by four; not a tokenizer measurement).
+- Full corpus: 3.46 M estimated tokens, 9,960 chunks, about Rs 57 to embed, and 31 MB of vectors.
+- The estimate is a planning baseline; PDF text and tokenization can differ from the sample.
+
+### One thing that went wrong today, and how I fixed it
+
+The source list was accidentally reduced to a fragment, causing a CSV URL validation error. I
+restored the ten complete rows and verified that all ten were already downloaded and safely skipped.
